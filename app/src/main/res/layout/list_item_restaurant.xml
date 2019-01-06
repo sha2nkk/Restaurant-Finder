@@ -11,41 +11,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
-            android:padding="8dp">
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="10dp"
+            android:padding="8dp"
+    app:OnClick="@{vm.onRestaurantClick}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:padding="8dp">
+                android:layout_height="wrap_content"
+                android:padding="12dp">
 
             <TextView
-                    android:id="@+id/name"
-                    app:layout_constraintTop_toTopOf="parent"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    app:layout_constraintBottom_toTopOf="@+id/address"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    tools:text="Central Park Restaurant"
-                    android:text="@{vm.restaurant.name}"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btnHate"
-                    android:layout_marginEnd="8dp"/>
+                android:id="@+id/name"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintBottom_toTopOf="@+id/address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Central Park Restaurant sdad sadsds sd sd sd s s s s s s "
+                android:text="@{vm.restaurant.name}"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
-                    android:id="@+id/address"
-                    app:layout_constraintTop_toBottomOf="@+id/name"
-                    app:layout_constraintBottom_toBottomOf="@+id/divider"
-                    android:text="@{vm.address}"
-                    android:layout_width="0dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_height="wrap_content"
-                    tools:text="Central Park Restaurant"
-                    app:layout_constraintEnd_toStartOf="@+id/btnHate"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                android:id="@+id/address"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                app:layout_constraintBottom_toBottomOf="@+id/divider"
+                android:text="@{vm.address}"
+                android:layout_width="0dp"
+                android:layout_marginTop="12dp"
+                android:layout_height="wrap_content"
+                tools:text="Central Park Restaurant"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
 
             <View
                     android:id="@+id/divider"
@@ -53,8 +53,9 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray"
                     app:layout_constraintTop_toBottomOf="@+id/address"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"/>
+                    app:layout_constraintBottom_toTopOf="@+id/actionButtons"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"/>
 
             <TextView
                     app:layout_constraintHorizontal_chainStyle="packed"
@@ -64,9 +65,10 @@
                     app:layout_constraintTop_toBottomOf="@+id/divider"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:drawableLeft="@drawable/ic_call"
-                    android:drawablePadding="8dp"
+                    android:drawablePadding="4dp"
                     android:gravity="center_vertical"
                     android:text="Call"
+                    app:OnClick="@{vm.onCallClick}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnLocation"/>
 
@@ -76,12 +78,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     app:layout_constraintTop_toBottomOf="@+id/divider"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:drawableLeft="@drawable/ic_location"
                     android:drawablePadding="4dp"
                     android:gravity="center_vertical"
                     android:text="Directions"
+                    app:OnClick="@{vm.onDirectionClick}"
                     app:layout_constraintStart_toEndOf="@+id/btnCall"
                     app:layout_constraintEnd_toStartOf="@+id/btnLike"/>
 
@@ -91,15 +94,18 @@
                     android:layout_height="24dp"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintTop_toBottomOf="@+id/divider"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:drawableLeft="@drawable/ic_thumb_up"
-                    android:drawablePadding="8dp"
+                    android:drawableLeft="@drawable/like_state"
+                    android:drawablePadding="12dp"
                     android:gravity="center_vertical"
+                    app:selected="@{vm.isLiked}"
                     android:text="Like"
+                    android:background="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/btnLocation"
-                    app:layout_constraintEnd_toStartOf="@+id/btnDislike"/>
+                    app:layout_constraintEnd_toStartOf="@+id/btnDislike"
+                    app:OnClick="@{vm.onLikeClick}"/>
 
             <TextView
                     android:id="@+id/btnDislike"
@@ -107,27 +113,26 @@
                     android:layout_height="24dp"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintTop_toBottomOf="@+id/divider"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:drawableLeft="@drawable/ic_thumb_down"
-                    android:drawablePadding="8dp"
+                    android:drawableLeft="@drawable/hate_state"
+                    android:drawablePadding="12dp"
                     android:gravity="center_vertical"
                     android:text="Dislike"
+                    android:background="@null"
+                    app:selected="@{vm.isDisLiked}"
+                    app:OnClick="@{vm.onDisLikeClick}"
                     app:layout_constraintStart_toEndOf="@+id/btnLike"/>
 
-            <TextView
-                    android:id="@+id/btnHate"
+            <androidx.constraintlayout.widget.Group
                     android:layout_width="wrap_content"
-                    android:layout_height="24dp"
-                    tools:text="9.5"
-                    android:text="@{vm.rating}"
-                    android:textColor="@android:color/white"
-                    app:bgColor="@{vm.ratingColor}"
-                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/actionButtons"
+                    app:layout_constraintTop_toBottomOf="@+id/divider"
+                    app:layout_constraintTop_toTopOf="@+id/btnLike"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@+id/divider"
-                    android:drawableLeft="@drawable/ic_favourite"/>
+                    app:constraint_referenced_ids="btnCall, btnLocation, btnLike, btnDislike"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -25,13 +25,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
 
+        nav_view.setCheckedItem(R.id.nav_home)
+        openFragment(RestaurantListingFragment())
+    }
+
+    fun openFragment(f: Fragment) {
         with(supportFragmentManager) {
-            val f = RestaurantListingFragment()
             beginTransaction()
-                .add(R.id.container,f)
+                .replace(R.id.container,f)
                 .commitAllowingStateLoss()
         }
-
     }
 
     override fun onBackPressed() {
@@ -59,13 +62,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
         when (item.itemId) {
+            nav_view.checkedItem?.itemId -> {
+                //Already Selected
+            }
+            R.id.nav_home -> {
+                openFragment(RestaurantListingFragment())
+            }
             R.id.nav_favourite -> {
-                // Handle the camera action
+                openFragment(LikedRestaurantFragment())
             }
             R.id.nav_disliked -> {
-
+                openFragment(HatedRestaurantFragment())
             }
         }
 

@@ -11,3 +11,8 @@ data class VenueListingResponse(
     @SerializedName("groups")
     val groups : ArrayList<Group<Restaurant>>
 )
+
+data class VenueDetailResponse(
+    @SerializedName("venue")
+    val venue : Venue
+)

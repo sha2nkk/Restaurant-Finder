@@ -1,40 +1,50 @@
 package com.shashankk
 
 import android.app.Application
-import android.content.Context
+import androidx.room.Room
 import com.android.volley.RequestQueue
-import com.android.volley.VolleyLog
 import com.android.volley.toolbox.Volley
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import com.shashankk.dao.AppDatabase
+import android.os.HandlerThread
+
+
 
 
 class RestaurantApplication : Application() {
-
-    val retrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://api.github.com")
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
 
     val requestQueue: RequestQueue by lazy {
         Volley.newRequestQueue(this)
     }
 
+    val databaseInstance: AppDatabase by lazy {
+        Room.databaseBuilder(
+            this,
+            AppDatabase::class.java, "venueDb"
+        ).allowMainThreadQueries().build()
+    }
+
+    val dbThread :HandlerThread by lazy { HandlerThread("DBThread")}
+
     companion object {
 
-        private lateinit  var instance : RestaurantApplication
+        private lateinit var instance: RestaurantApplication
 
-        fun getInstance() : RestaurantApplication {
-            return instance
-        }
+        fun getInstance() = instance
+
+        fun getDatabaseInstance() = instance.databaseInstance
+
+        fun getDBThread() = instance.dbThread
     }
 
     override fun onCreate() {
         super.onCreate()
         instance = this
+        createDBThread()
     }
+
+    private fun createDBThread() {
+        dbThread.start()
+    }
+
+
 }

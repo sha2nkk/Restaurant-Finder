@@ -1,9 +1,6 @@
 package com.shashankk.model
 
-import com.shashankk.model.newModels.BestPhoto
-import com.shashankk.model.newModels.Hours
-import com.shashankk.model.newModels.Photos
-import com.shashankk.model.newModels.Tips
+import com.shashankk.model.newModels.*
 
 
 class Test {
@@ -37,7 +34,7 @@ class Test {
     var inbox: Inbox? = null
     internal var venueChains = ArrayList<Any>()
     var attributes: Attributes? = null
-    var bestPhoto: BestPhoto? = null
+    var bestPhoto: Photo? = null
 }
 
 class Attributes {
